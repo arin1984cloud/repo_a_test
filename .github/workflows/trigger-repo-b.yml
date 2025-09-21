@@ -13,7 +13,7 @@ jobs:
         uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.REPO_B_TOKEN }} # PAT with `repo` + `workflow` scopes
-          repository: my-org/repo-b
+          repository: arin1984cloud/repo_b_test
           event-type: run-ci-cd
           client-payload: |
             {
