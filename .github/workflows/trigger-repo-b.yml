@@ -9,6 +9,18 @@ jobs:
   trigger:
     runs-on: ubuntu-latest
     steps:
+      - name: Check for newly added installer files
+        id: check
+        run: |
+
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+            HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+          else
+            # For push events
+            BASE_SHA=$(git rev-parse HEAD~1)
+            HEAD_SHA=$(git rev-parse HEAD)
+          fi
       - name: Trigger Repo B workflow
         uses: peter-evans/repository-dispatch@v3
         with:
@@ -19,4 +31,6 @@ jobs:
             {
               "ref": "${{ github.sha }}",
               "branch": "${{ github.ref_name }}"
+              "base_sha": $BASE_SHA,
+              "head_sha": $HEAD_SHA
             }
