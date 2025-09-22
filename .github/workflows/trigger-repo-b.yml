@@ -34,6 +34,6 @@ jobs:
             {
               "ref": "${{ github.sha }}",
               "branch": "${{ github.ref_name }}"
-              "base_sha": $BASE_SHA,
-              "head_sha": $HEAD_SHA
+              "base_sha": "$BASE_SHA",
+              "head_sha": "$HEAD_SHA"
             }
