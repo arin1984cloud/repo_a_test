@@ -24,6 +24,8 @@ jobs:
             BASE_SHA=$(git rev-parse HEAD~1)
             HEAD_SHA=$(git rev-parse HEAD)
           fi
+          echo "BASE_SHA=$BASE_SHA" >> $GITHUB_OUTPUT
+          echo "HEAD_SHA=$HEAD_SHA" >> $GITHUB_OUTPUT
       - name: Trigger Repo B workflow
         uses: peter-evans/repository-dispatch@v3
         with:
@@ -34,6 +36,6 @@ jobs:
             {
               "ref": "${{ github.sha }}",
               "branch": "${{ github.ref_name }}",
-              "base_sha": "${{ $BASE_SHA }}",
-              "head_sha": "${{ $HEAD_SHA }}"
+              "base_sha": "${{ steps.check.outputs.BASE_SHA }}",
+              "head_sha": "${{ steps.check.outputs.HEAD_SHA }}"
             }
